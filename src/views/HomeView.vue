@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <section class="mb-3">
+      <h2 class="ml-3">Ingreso usuario</h2>
+      <b-form-input class="mb-3" v-model="text" placeholder="ingrese correo"
+        >Usuario</b-form-input
+      >
+      <b-form-input v-model="text" placeholder="Ingrese contraseña"
+        >Contraseña</b-form-input
+      >
+    </section>
+
+    <b-button variant="danger">ingresar</b-button>
+    <h3>Eres nuevo, crea tu cuenta <a href="">Aquí</a></h3>
+    <RegisterUser :msg="saludos" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import RegisterUser from "@/components/RegisterUser.vue";
 
 export default {
   name: "HomeView",
+  data() {
+    return {
+      saludos: "Hola Mundeque",
+    };
+  },
   components: {
-    HelloWorld,
+    RegisterUser,
   },
 };
 </script>

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import store from "../store/index.js";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,22 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = store.state.isAuthenticated;
+  
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!isAuthenticated) {
+      next({
+        path: "/",
+        query: { redirect: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  }
+
 });
 
 export default router;
